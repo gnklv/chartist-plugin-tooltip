@@ -85,6 +85,7 @@
           var hasMeta = !!meta;
           var value = $point.getAttribute('ct:value');
           var date = $point.getAttribute('ct:date');
+          var index = $point.getAttribute('ct:index');
 
           if (options.transformTooltipTextFnc && typeof options.transformTooltipTextFnc === 'function') {
             value = options.transformTooltipTextFnc(value);
@@ -97,6 +98,10 @@
               var txt = document.createElement('textarea');
               txt.innerHTML = meta;
               meta = txt.value;
+            }
+
+            if (index) {
+              $toolTip.setAttribute('data-index', index )
             }
 
             if (date) {
