@@ -15,9 +15,9 @@
 }(this, function (Chartist) {
 
   /**
-  * Chartist.js plugin to display a data label on top of the points in a line chart.
-  *
-  */
+   * Chartist.js plugin to display a data label on top of the points in a line chart.
+   *
+   */
   /* global Chartist */
   (function (window, document, Chartist) {
     'use strict';
@@ -71,7 +71,7 @@
         function on(event, selector, callback) {
           $chart.addEventListener(event, function (e) {
             if (!selector || hasClass(e.target, selector))
-            callback(e);
+              callback(e);
           });
         }
 
@@ -84,6 +84,7 @@
           var meta = $point.getAttribute('ct:meta') || seriesName || '';
           var hasMeta = !!meta;
           var value = $point.getAttribute('ct:value');
+          var date = $point.getAttribute('ct:date');
 
           if (options.transformTooltipTextFnc && typeof options.transformTooltipTextFnc === 'function') {
             value = options.transformTooltipTextFnc(value);
@@ -96,6 +97,11 @@
               var txt = document.createElement('textarea');
               txt.innerHTML = meta;
               meta = txt.value;
+            }
+
+            if (date) {
+              date = '<span class="chartist-tooltip-date">' + date + '</span>';
+              tooltipText += date + '<br>';
             }
 
             meta = '<span class="chartist-tooltip-meta">' + meta + '</span>';
@@ -143,7 +149,7 @@
 
         on('mousemove', null, function (event) {
           if (false === options.anchorToPoint)
-          setPosition(event);
+            setPosition(event);
         });
 
         function setPosition(event) {

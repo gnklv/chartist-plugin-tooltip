@@ -68,6 +68,7 @@
         var meta = $point.getAttribute('ct:meta') || seriesName || '';
         var hasMeta = !!meta;
         var value = $point.getAttribute('ct:value');
+        var date = $point.getAttribute('ct:date');
 
         if (options.transformTooltipTextFnc && typeof options.transformTooltipTextFnc === 'function') {
           value = options.transformTooltipTextFnc(value);
@@ -80,6 +81,11 @@
             var txt = document.createElement('textarea');
             txt.innerHTML = meta;
             meta = txt.value;
+          }
+
+          if (date) {
+            date = '<span class="chartist-tooltip-date">' + date + '</span>';
+            tooltipText += date + '<br>';
           }
 
           meta = '<span class="chartist-tooltip-meta">' + meta + '</span>';
