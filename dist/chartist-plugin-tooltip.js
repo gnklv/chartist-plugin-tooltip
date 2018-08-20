@@ -81,11 +81,11 @@
 
           var isPieChart = (chart instanceof Chartist.Pie) ? $point : $point.parentNode;
           var seriesName = (isPieChart) ? $point.parentNode.getAttribute('ct:meta') || $point.parentNode.getAttribute('ct:series-name') : '';
-          var meta = $point.getAttribute('ct:meta') || seriesName || '';
+          var meta = $point.getAttribute('data-meta') || seriesName || '';
           var hasMeta = !!meta;
           var value = $point.getAttribute('ct:value');
-          var date = $point.getAttribute('ct:date');
-          var index = $point.getAttribute('ct:index');
+          var date = $point.getAttribute('data-date');
+          var index = $point.getAttribute('data-index');
 
           if (options.transformTooltipTextFnc && typeof options.transformTooltipTextFnc === 'function') {
             value = options.transformTooltipTextFnc(value);
