@@ -25,6 +25,7 @@
 
     return function tooltip(chart) {
       var tooltipSelector = options.pointClass;
+      var tooltipCloseSelector = 'tooltip-close';
       /* Class name mangled after minification */
       /*if (chart.constructor.name == Chartist.Bar.prototype.constructor.name) {
         tooltipSelector = 'ct-bar';
@@ -55,12 +56,13 @@
 
       function on(event, selector, callback) {
         $chart.addEventListener(event, function (e) {
-          if (!selector || hasClass(e.target, selector))
-          callback(e);
+          if (!selector || hasClass(e.target, selector)) {
+            callback(e)
+          }
         });
       }
 
-      on('mouseover', tooltipSelector, function (event) {
+      on('click', tooltipSelector, function (event) {
         var $point = event.target;
         var tooltipText = '';
 
@@ -122,6 +124,9 @@
           }
         }
 
+        var $toolTipClose = '<button class='+ tooltipCloseSelector +'></button>';
+        tooltipText += $toolTipClose;
+
         if(tooltipText) {
           $toolTip.innerHTML = tooltipText;
           setPosition(event);
@@ -133,13 +138,8 @@
         }
       });
 
-      on('mouseout', tooltipSelector, function () {
+      on('click', tooltipCloseSelector, function(event) {
         hide($toolTip);
-      });
-
-      on('mousemove', null, function (event) {
-        if (false === options.anchorToPoint)
-        setPosition(event);
       });
 
       function setPosition(event) {
