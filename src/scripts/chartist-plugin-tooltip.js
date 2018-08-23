@@ -26,6 +26,7 @@
     return function tooltip(chart) {
       var tooltipSelector = options.pointClass;
       var tooltipCloseSelector = 'tooltip-close';
+      var tooltipOverlaySelector = 'tooltip-overlay';
       /* Class name mangled after minification */
       /*if (chart.constructor.name == Chartist.Bar.prototype.constructor.name) {
         tooltipSelector = 'ct-bar';
@@ -40,15 +41,21 @@
 
       var $chart = chart.container;
       var $toolTip = $chart.querySelector('.chartist-tooltip');
+      var $toolTipOverlay = document.createElement('div');
+      $toolTipOverlay.className = tooltipOverlaySelector;
+
       if (!$toolTip) {
         $toolTip = document.createElement('div');
         $toolTip.className = (!options.class) ? 'chartist-tooltip' : 'chartist-tooltip ' + options.class;
         if (!options.appendToBody) {
+          $chart.appendChild($toolTipOverlay);
           $chart.appendChild($toolTip);
         } else {
+          document.body.appendChild($toolTipOverlay);
           document.body.appendChild($toolTip);
         }
       }
+
       var height = $toolTip.offsetHeight;
       var width = $toolTip.offsetWidth;
 
@@ -131,6 +138,7 @@
           $toolTip.innerHTML = tooltipText;
           setPosition(event);
           show($toolTip);
+          show($toolTipOverlay);
 
           // Remember height and width to avoid wrong position in IE
           height = $toolTip.offsetHeight;
@@ -138,8 +146,14 @@
         }
       });
 
-      on('click', tooltipCloseSelector, function(event) {
+      on('click', tooltipOverlaySelector, function() {
         hide($toolTip);
+        hide($toolTipOverlay);
+      });
+
+      on('click', tooltipCloseSelector, function() {
+        hide($toolTip);
+        hide($toolTipOverlay);
       });
 
       function setPosition(event) {
