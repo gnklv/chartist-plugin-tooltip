@@ -27,17 +27,18 @@
       var tooltipSelector = options.pointClass;
       var tooltipCloseSelector = 'tooltip-close';
       var tooltipOverlaySelector = 'tooltip-overlay';
-      /* Class name mangled after minification */
-      /*if (chart.constructor.name == Chartist.Bar.prototype.constructor.name) {
+      if (chart.constructor === Chartist.Bar.prototype.constructor) {
         tooltipSelector = 'ct-bar';
-      } else if (chart.constructor.name ==  Chartist.Pie.prototype.constructor.name) {
+      } else if (chart.constructor ===  Chartist.Pie.prototype.constructor) {
         // Added support for donut graph
         if (chart.options.donut) {
           tooltipSelector = 'ct-slice-donut';
         } else {
           tooltipSelector = 'ct-slice-pie';
         }
-      }*/
+      }
+      console.log(chart.constructor);
+      console.log(Chartist.Bar.prototype.constructor);
 
       var $chart = chart.container;
       var $toolTip = $chart.querySelector('.chartist-tooltip');
