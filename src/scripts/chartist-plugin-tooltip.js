@@ -37,8 +37,6 @@
           tooltipSelector = 'ct-slice-pie';
         }
       }
-      console.log(chart.constructor);
-      console.log(Chartist.Bar.prototype.constructor);
 
       var $chart = chart.container;
       var $toolTip = $chart.querySelector('.chartist-tooltip');
